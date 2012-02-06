@@ -8,3 +8,7 @@ hooks:
         - drush dl drupal --drupal-project-rename=drupal --yes
         - mv drupal/* drupal/.??* .
         - rmdir drupal
+
+        - cp sites/default/default.settings.php sites/default/settings.php
+        - cat settings-databases.php | tee -a sites/default/settings.php
+        - mkdir sites/default/files
