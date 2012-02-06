@@ -1,0 +1,10 @@
+framework: php
+services:
+    mysql: mysql-drupal
+hooks:
+    post-staging:
+        #- sudo apt-get update
+        #- sudo apt-get install drush
+        - drush dl drupal --drupal-project-rename=drupal --yes
+        - mv drupal/* drupal/.??* .
+        - rmdir drupal
