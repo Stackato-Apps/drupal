@@ -12,6 +12,3 @@ hooks:
         - cp sites/default/default.settings.php sites/default/settings.php
         - cat settings-databases.php | tee -a sites/default/settings.php
         - mkdir sites/default/files
-
-        # example extra module
-        - drush dl token --yes
