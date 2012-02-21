@@ -1,6 +1,7 @@
 framework: php
 services:
     mysql: mysql-drupal
+    filesystem: fs-drupal
 hooks:
     post-staging:
         - sudo apt-get update
@@ -11,4 +12,5 @@ hooks:
 
         - cp sites/default/default.settings.php sites/default/settings.php
         - cat settings-databases.php | tee -a sites/default/settings.php
-        - mkdir sites/default/files
+    pre-running:
+        - ln -s $STACKATO_FILESYSTEM $HOME/sites/default/files
