@@ -13,4 +13,4 @@ hooks:
         - cp sites/default/default.settings.php sites/default/settings.php
         - cat settings-databases.php | tee -a sites/default/settings.php
     pre-running:
-        - ln -s $STACKATO_FILESYSTEM $HOME/sites/default/files
+        - ln -s $STACKATO_FILESYSTEM sites/default/files
