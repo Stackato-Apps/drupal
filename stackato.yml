@@ -2,10 +2,16 @@ framework: php
 services:
     mysql: mysql-drupal
     filesystem: fs-drupal
+requirements:
+    staging:
+        ubuntu:
+            - drush
+        redhat:
+            - drush
+min_version:
+    server: 1.0
 hooks:
     post-staging:
-        - sudo apt-get update
-        - sudo apt-get install drush
         - drush dl drupal --drupal-project-rename=drupal --yes
         - mv drupal/* drupal/.??* .
         - rmdir drupal
