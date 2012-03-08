@@ -26,5 +26,6 @@ hooks:
         - php sample-install.php
     pre-running:
         - ln -s $STACKATO_FILESYSTEM sites/default/files
+        - echo $VCAP_SERVICES | tee VCAP_SERVICES.json
 cron:
-    - "*/15 * * * * drush cron >>$STACKATO_APP_ROOT/logs/cron.log 2>&1"
+    - "*/15 * * * * VCAP_SERVICES=$(cat VCAP_SERVICES.json) drush cron >>$STACKATO_APP_ROOT/logs/cron.log 2>&1"
