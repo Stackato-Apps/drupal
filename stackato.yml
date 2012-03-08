@@ -8,6 +8,11 @@ requirements:
             - drush
         redhat:
             - drush
+    running:
+        ubuntu:
+            - drush
+        redhat:
+            - drush
 min_version:
     server: 1.0
 hooks:
@@ -21,3 +26,5 @@ hooks:
         - php sample-install.php
     pre-running:
         - ln -s $STACKATO_FILESYSTEM sites/default/files
+cron:
+    - "*/15 * * * * drush cron >>$STACKATO_APP_ROOT/logs/cron.log 2>&1"
