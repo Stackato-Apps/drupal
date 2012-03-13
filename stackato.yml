@@ -2,22 +2,12 @@ framework: php
 services:
     mysql: mysql-drupal
     filesystem: fs-drupal
-requirements:
-    staging:
-        ubuntu:
-            - drush
-        redhat:
-            - drush
-    running:
-        ubuntu:
-            - drush
-        redhat:
-            - drush
 min_version:
     server: 1.0
 hooks:
     post-staging:
-        - drush dl drupal --drupal-project-rename=drupal --yes
+        - curl -S http://ftp.drupal.org/files/projects/drush-7.x-4.5.tar.gz | tar xzf -
+        - drush/drush dl drupal --drupal-project-rename=drupal --yes
         - mv drupal/* drupal/.??* .
         - rmdir drupal
 
@@ -28,4 +18,4 @@ hooks:
         - ln -s $STACKATO_FILESYSTEM sites/default/files
         - echo $VCAP_SERVICES | tee VCAP_SERVICES.json
 cron:
-    - "*/15 * * * * VCAP_SERVICES=$(cat VCAP_SERVICES.json) drush cron >>$STACKATO_APP_ROOT/logs/cron.log 2>&1"
+    - "*/15 * * * * VCAP_SERVICES=$(cat VCAP_SERVICES.json) drush/drush cron >>$STACKATO_APP_ROOT/logs/cron.log 2>&1"
