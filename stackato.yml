@@ -14,6 +14,8 @@ hooks:
         - cp sites/default/default.settings.php sites/default/settings.php
         - cat settings-databases.php | tee -a sites/default/settings.php
         - php sample-install.php
+        - drush/drush dl pathauto --yes
+        - drush/drush en pathauto --yes
     pre-running:
         - ln -s $STACKATO_FILESYSTEM sites/default/files
         - echo $VCAP_SERVICES | tee VCAP_SERVICES.json
