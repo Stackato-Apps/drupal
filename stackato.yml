@@ -6,18 +6,27 @@ min_version:
     server: 1.0
 hooks:
     post-staging:
-        - curl -S http://ftp.drupal.org/files/projects/drush-7.x-4.5.tar.gz | tar xzf -
+        # First we get drush
+        - curl http://ftp.drupal.org/files/projects/drush-7.x-4.5.tar.gz | tar xzf -
+
+        # Then we use drush to download druapl (and move it to our home directory)
         - drush/drush dl drupal --drupal-project-rename=drupal --yes
         - mv drupal/* drupal/.??* .
         - rmdir drupal
 
+        # Set up settings.php and initialize the database
         - cp sites/default/default.settings.php sites/default/settings.php
         - cat settings-databases.php | tee -a sites/default/settings.php
         - php sample-install.php
-        - drush/drush dl pathauto --yes
-        - drush/drush en pathauto --yes
+
+        # Download and enable a few sample modules
+        - drush/drush dl pathauto,views --yes
+        - drush/drush en pathauto,views_ui --yes
+
     pre-running:
         - ln -s $STACKATO_FILESYSTEM sites/default/files
+
+        # Workaround to pass $VCAP_SERVICES to cron
         - echo $VCAP_SERVICES | tee VCAP_SERVICES.json
 cron:
     - "*/15 * * * * VCAP_SERVICES=$(cat VCAP_SERVICES.json) drush/drush cron >>$STACKATO_APP_ROOT/logs/cron.log 2>&1"
