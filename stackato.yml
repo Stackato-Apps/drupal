@@ -24,7 +24,10 @@ hooks:
         - drush/drush en pathauto,views_ui --yes
 
     pre-running:
+        - chmod u+w sites/default
+        - rm -rf sites/default/files
         - ln -s $STACKATO_FILESYSTEM sites/default/files
+        - chmod u-w sites/default
 
         # Workaround to pass $VCAP_SERVICES to cron
         - echo $VCAP_SERVICES | tee VCAP_SERVICES.json
