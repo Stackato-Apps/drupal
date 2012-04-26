@@ -30,9 +30,9 @@ hooks:
         - rm -rf sites/{default/files,all/themes,all/modules}
         # recreate these in the shared filesystem and link to them
         - mkdir -p $STACKATO_FILESYSTEM/sites/{default/files,all/themes,all/modules}
-        - ln -s "$STACKATO_FILESYSTEM"sites/default/files sites/default
-        - ln -s "$STACKATO_FILESYSTEM"sites/all/themes sites/all
-        - ln -s "$STACKATO_FILESYSTEM"sites/all/modules sites/all
+        - ln -s "$STACKATO_FILESYSTEM"/sites/default/files sites/default
+        - ln -s "$STACKATO_FILESYSTEM"/sites/all/themes sites/all
+        - ln -s "$STACKATO_FILESYSTEM"/sites/all/modules sites/all
         - chmod u-w sites/default
 
         # Workaround to pass $VCAP_SERVICES to cron
