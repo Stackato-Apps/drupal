@@ -14,6 +14,10 @@ if you wish to share 'sites/all' between multiple sites).
 
     stackato push -n
 
+## First Time Setup
+
+    Username: admin
+    Password: passwd
 
 Information on configuring and using Drupal can be found at:
 
