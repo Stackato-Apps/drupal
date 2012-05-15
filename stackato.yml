@@ -1,8 +1,8 @@
 name: drupal
 framework: php
 services:
-    mysql: mysql-drupal
-    filesystem: fs-drupal
+    mysql-drupal: mysql
+    fs-drupal: filesystem
 min_version:
     server: 1.0
 hooks:
