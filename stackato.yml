@@ -8,7 +8,7 @@ min_version:
 hooks:
     post-staging:
         # First we get drush
-        - curl -sfS http://ftp.drupal.org/files/projects/drush-7.x-4.5.tar.gz | tar xzf -
+        - curl -sfS http://ftp.drupal.org/files/projects/drush-7.x-5.1.tar.gz | tar xzf -
 
         # Then we use drush to download druapl (and move it to our home directory)
         - drush/drush dl drupal --drupal-project-rename=drupal --yes
