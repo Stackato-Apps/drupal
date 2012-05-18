@@ -10,7 +10,7 @@ hooks:
         # First we get drush
         - curl -sfS http://ftp.drupal.org/files/projects/drush-7.x-5.1.tar.gz | tar xzf -
 
-        # Then we use drush to download druapl (and move it to our home directory)
+        # Then we use drush to download drupal (and move it to our home directory)
         #- drush/drush dl drupal --drupal-project-rename=drupal --yes
         - drush/drush dl drupal --drupal-project-rename=drupal --yes
         - mv drupal/* drupal/.??* .
