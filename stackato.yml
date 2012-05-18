@@ -7,24 +7,21 @@ min_version:
     server: 1.0
 hooks:
     post-staging:
-        # First we get drush
+        # First we get drush and put it in the app root (more secure).
         - curl -sfS http://ftp.drupal.org/files/projects/drush-7.x-5.1.tar.gz | tar xzf -
+        - mv drush "$STACKATO_APP_ROOT"/
 
         # Then we use drush to download drupal (and move it to our home directory)
-        #- drush/drush dl drupal --drupal-project-rename=drupal --yes
-        - drush/drush dl drupal --drupal-project-rename=drupal --yes
+        - $STACKATO_APP_ROOT/drush/drush dl drupal --drupal-project-rename=drupal --yes
         - mv drupal/* drupal/.??* .
         - rmdir drupal
-        - drush/drush site-install -y --db-url=$DATABASE_URL --account-name=admin --account-pass=passwd --site-name=Stackato --locale=en-US
 
-        # Set up settings.php and initialize the database
-        #- cp sites/default/default.settings.php sites/default/settings.php
-        #- cat settings-databases.php | tee -a sites/default/settings.php
-        #- php sample-install.php
+        # This does the full install.
+        - $STACKATO_APP_ROOT/drush/drush -r $HOME site-install -y --db-url=$DATABASE_URL --account-name=admin --account-pass=passwd --site-name=Stackato --locale=en-US
 
         # Download and enable a few sample modules
-        - drush/drush dl pathauto,views --yes
-        - drush/drush en pathauto,views_ui --yes
+        - $STACKATO_APP_ROOT/drush/drush -r $HOME dl pathauto,views --yes
+        - $STACKATO_APP_ROOT/drush/drush -r $HOME en pathauto,views_ui --yes
 
     pre-running:
         # remove some directories created by drush post-staging
@@ -38,6 +35,6 @@ hooks:
         - chmod u-w sites/default
 
         # Workaround to pass $VCAP_SERVICES to cron
-        - echo $VCAP_SERVICES | tee VCAP_SERVICES.json
+        - echo $VCAP_SERVICES | tee $STACKATO_APP_ROOT/VCAP_SERVICES.json
 cron:
-    - "*/15 * * * * VCAP_SERVICES=$(cat VCAP_SERVICES.json) drush/drush cron >>$STACKATO_APP_ROOT/logs/cron.log 2>&1"
+    - "*/15 * * * * VCAP_SERVICES=$(cat $STACKATO_APP_ROOT/VCAP_SERVICES.json) $STACKATO_APP_ROOT/drush/drush cron >>$STACKATO_APP_ROOT/logs/cron.log 2>&1"
