@@ -11,14 +11,16 @@ hooks:
         - curl -sfS http://ftp.drupal.org/files/projects/drush-7.x-5.1.tar.gz | tar xzf -
 
         # Then we use drush to download druapl (and move it to our home directory)
+        #- drush/drush dl drupal --drupal-project-rename=drupal --yes
         - drush/drush dl drupal --drupal-project-rename=drupal --yes
         - mv drupal/* drupal/.??* .
         - rmdir drupal
+        - drush/drush site-install -y --db-url=$DATABASE_URL --account-name=admin --account-pass=passwd --site-name=Stackato --locale=en-US
 
         # Set up settings.php and initialize the database
-        - cp sites/default/default.settings.php sites/default/settings.php
-        - cat settings-databases.php | tee -a sites/default/settings.php
-        - php sample-install.php
+        #- cp sites/default/default.settings.php sites/default/settings.php
+        #- cat settings-databases.php | tee -a sites/default/settings.php
+        #- php sample-install.php
 
         # Download and enable a few sample modules
         - drush/drush dl pathauto,views --yes
