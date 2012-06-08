@@ -23,16 +23,26 @@ hooks:
         - $STACKATO_APP_ROOT/drush/drush -r $HOME dl pathauto,views --yes
         - $STACKATO_APP_ROOT/drush/drush -r $HOME en pathauto,views_ui --yes
 
+        #- mv profiles/modules/* sites/all/modules/
+        
+        # create sites in the shared filesystem and migrate
+        - mkdir -p $STACKATO_FILESYSTEM/sites
+        - mv sites/* $STACKATO_FILESYSTEM/sites/
+        
+        # rename old directories
+        - mv sites sites_old
+        
+        # link to sites folder in the shared filesystem
+        - ln -s "$STACKATO_FILESYSTEM"/sites sites
+
     pre-running:
-        # remove some directories created by drush post-staging
-        - chmod u+w sites/default
-        - rm -rf sites/{default/files,all/themes,all/modules}
-        # recreate these in the shared filesystem and link to them
-        - mkdir -p $STACKATO_FILESYSTEM/sites/{default/files,all/themes,all/modules}
-        - ln -s "$STACKATO_FILESYSTEM"/sites/default/files sites/default
-        - ln -s "$STACKATO_FILESYSTEM"/sites/all/themes sites/all
-        - ln -s "$STACKATO_FILESYSTEM"/sites/all/modules sites/all
-        - chmod u-w sites/default
+        # remove some directories
+        - chmod u+w sites
+        - rm -rf sites
+        
+        # link to sites folder in the shared filesystem
+        - ln -s "$STACKATO_FILESYSTEM"/sites sites
+        - chmod u-w sites
 
         # Workaround to pass $VCAP_SERVICES to cron
         - echo $VCAP_SERVICES | tee $STACKATO_APP_ROOT/VCAP_SERVICES.json
