@@ -20,7 +20,7 @@ hooks:
 
         # create sites in the shared filesystem and migrate
         - mkdir -p "$STACKATO_FILESYSTEM"/sites
-        - mv sites/* "$STACKATO_FILESYSTEM"/sites/
+        - cp -r sites/* "$STACKATO_FILESYSTEM"/sites/
         
         # remove unused directories
         - rm -rf sites
