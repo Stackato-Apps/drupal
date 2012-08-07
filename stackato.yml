@@ -3,10 +3,11 @@ instance: 1
 framework: php
 mem: 128M
 min_version:
+    client: 1.4.3
     server: 1.0
 services:
-    mysql-drupal: mysql
-    fs-drupal: filesystem
+    ${name}-db: mysql
+    ${name}-fs: filesystem
 hooks:
     post-staging:
         # First we get drush and put it in the app root (more secure).
