@@ -19,6 +19,8 @@ if you wish to share 'sites/all' between multiple sites).
     Username: admin
     Password: passwd
 
-Information on configuring and using Drupal can be found at:
+## Outgoing Email Support
 
- http://drupal.org/
+An external accessible email server is required for full functionality 
+of this application. Please see [SMTP Authentication Support Module](http://drupal.org/project/smtp/) 
+for more details on configuration.
