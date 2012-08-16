@@ -1,7 +1,7 @@
 name: drupal
 instance: 1
 framework: php
-mem: 256M
+mem: 512M
 min_version:
     client: 1.4.3
     server: 1.0
