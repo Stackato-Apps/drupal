@@ -27,7 +27,13 @@ cp -r sites/* $FS/sites
 echo "Symlink to folders in shared filesystem..."
 rm -fr sites
 ln -s $FS/sites sites
-    
+
+# allow custom profile installations (if exist)
+if [ -s custom-profile.sh ]
+  then
+    bash custom-profile.sh
+fi
+
 if ! [ -e $FS/INSTALLED ]
   then
     echo "Installing Drupal..."
