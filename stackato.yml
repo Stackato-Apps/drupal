@@ -13,6 +13,6 @@ hooks:
         - sh stackato-setup.sh
     pre-running:
         # Workaround to pass $VCAP_SERVICES to cron
-        - echo $VCAP_SERVICES | tee $STACKATO_APP_ROOT/VCAP_SERVICES.json
+        - python vcap-workaround.py
 cron:
     - "*/15 * * * * VCAP_SERVICES=$(cat $STACKATO_APP_ROOT/VCAP_SERVICES.json) $STACKATO_APP_ROOT/drush/drush cron >>$STACKATO_APP_ROOT/logs/cron.log 2>&1"
