@@ -4,7 +4,7 @@
 
 FS=$STACKATO_FILESYSTEM
 SAR=$STACKATO_APP_ROOT
-DRUSH=http://ftp.drupal.org/files/projects/drush-7.x-5.7.tar.gz
+DRUSH=http://ftp.drupal.org/files/projects/drush-7.x-5.9.tar.gz
 
 if ! [ -s $HOME/index.php ]
   then
