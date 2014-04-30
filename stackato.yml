@@ -1,4 +1,4 @@
-name: drupal
+name: drupal-commerce
 instance: 1
 framework: php
 mem: 256M
