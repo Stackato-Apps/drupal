@@ -3,15 +3,16 @@ instances: 1
 framework: php
 mem: 256M
 min_version:
-    client: 1.4.3
+  client: 1.4.3
 services:
-    ${name}-db: mysql
-    ${name}-fs: filesystem
+  ${name}-db: mysql
+  ${name}-fs: filesystem
 hooks:
-    post-staging:
-        - sh stackato-setup.sh
-    pre-running:
-        # Workaround to pass $VCAP_SERVICES to cron
-        - python vcap-workaround.py
+  post-staging:
+  - sh stackato-setup.sh
+  pre-running:
+  # Workaround to pass $VCAP_SERVICES to cron
+  - python vcap-workaround.py
 cron:
-    - "*/15 * * * * VCAP_SERVICES=$(cat $STACKATO_APP_ROOT/VCAP_SERVICES.json) $STACKATO_APP_ROOT/drush/drush cron >>$STACKATO_APP_ROOT/logs/cron.log 2>&1"
+- "*/15 * * * * VCAP_SERVICES=$(cat $STACKATO_APP_ROOT/VCAP_SERVICES.json)
+  $STACKATO_APP_ROOT/drush/drush cron >>$STACKATO_APP_ROOT/logs/cron.log 2>&1"
