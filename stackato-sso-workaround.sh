@@ -1,6 +1,6 @@
 #!/bin/bash
 
-file="includes/bootstrap.inc"
+file=`dirname $0`"/includes/bootstrap.inc"
 line="$(sed -n '/is_https =/=' $file)"
 
 # remove line that sets is_https
