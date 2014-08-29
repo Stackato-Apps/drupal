@@ -1,6 +1,6 @@
 applications:
 - name: drupal
-  buildpack: https://github.com/ActiveState/heroku-buildpack-php.git
+  buildpack: https://github.com/heroku/heroku-buildpack-php.git
   instances: 1
   mem: 256M
   services:
@@ -14,11 +14,14 @@ applications:
       $STACKATO_APP_ROOT/drush/drush cron >>$STACKATO_APP_ROOT/logs/cron.log 2>&1"
     hooks:
       post-staging:
-      - sh www/stackato-setup.sh
-      - sh www/stackato-sso-workaround.sh
+      - sh stackato-setup.sh
+      - sh stackato-sso-workaround.sh
       pre-running:
       # Workaround to pass $VCAP_SERVICES to cron
-      - python www/vcap-workaround.py
+      - python vcap-workaround.py
     min_version:
       client: 1.4.3
+    requirements:
+      ubuntu:
+      - libjpeg62
 
