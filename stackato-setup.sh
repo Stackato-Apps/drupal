@@ -17,31 +17,31 @@ if ! [ -s $HOME/index.php ]
     mv drush $SAR
 
     $SAR/drush/drush dl drupal --drupal-project-rename=drupal --yes
-    mv drupal/* drupal/.??* www/
+    mv drupal/* drupal/.??* .
     rmdir drupal
 fi
 
 echo "Migrating data to shared filesystem..."
-cp -r www/sites/* $FS/sites
+cp -r sites/* $FS/sites
 
 echo "Symlink to folders in shared filesystem..."
-rm -fr www/sites
-ln -s $FS/sites www/sites
+rm -fr sites
+ln -s $FS/sites sites
 
 # allow custom profile installations (if exist)
-if [ -s www/custom-profile.sh ]
+if [ -s custom-profile.sh ]
   then
-    bash www/custom-profile.sh
+    bash custom-profile.sh
 fi
 
 if ! [ -e $FS/INSTALLED ]
   then
     echo "Installing Drupal..."
-    $SAR/drush/drush -r $HOME/www site-install -y --db-url=$DATABASE_URL --account-name=admin --account-pass=passwd --site-name=Stackato --locale=en-US
+    $SAR/drush/drush -r $HOME site-install -y --db-url=$DATABASE_URL --account-name=admin --account-pass=passwd --site-name=Stackato --locale=en-US
 
     echo "Installing Drupal modules..."
-    $SAR/drush/drush -r $HOME/www dl pathauto,views --yes
-    $SAR/drush/drush -r $HOME/www en pathauto,views_ui --yes
+    $SAR/drush/drush -r $HOME dl pathauto,views --yes
+    $SAR/drush/drush -r $HOME en pathauto,views_ui --yes
 
     # Drupal successfully installed
     touch $FS/INSTALLED
