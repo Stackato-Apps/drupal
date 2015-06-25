@@ -46,7 +46,7 @@ fi
 if ! [ -e $FS/INSTALLED ]
   then
     echo "Installing Drupal..."
-    $SAR/drush/drush -r $HOME site-install -y --db-url=$DATABASE_URL --account-name=admin --account-pass=passwd --site-name=Stackato --locale=en-US
+    $SAR/drush/drush -r $HOME site-install -y --db-url=$DATABASE_URL --account-name=admin --account-pass=passwd --site-name=MySite --locale=en-US
 
     echo "Installing Drupal modules..."
     $SAR/drush/drush -r $HOME dl pathauto,views --yes
