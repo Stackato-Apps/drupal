@@ -5,11 +5,13 @@
 FS=$STACKATO_FILESYSTEM
 SAR=$STACKATO_APP_ROOT
 DRUSH=http://ftp.drupal.org/files/projects/drush-7.x-5.9.tar.gz
+SMTP_MODULE=http://ftp.drupal.org/files/projects/smtp-7.x-1.2.tar.gz
 
 if ! [ -s $HOME/index.php ]
   then
     # create folders in the shared filesystem 
     mkdir -p $FS/sites
+    mkdir -p $FS/modules
 
     # download required files
     echo "Downloading Drush and Drupal..."
@@ -19,14 +21,21 @@ if ! [ -s $HOME/index.php ]
     $SAR/drush/drush dl drupal --drupal-project-rename=drupal --yes
     mv drupal/* drupal/.??* .
     rmdir drupal
+
+    echo "Downloading SMPT module..."
+    curl -sfS $SMTP_MODULE | tar xzf -
+    mv smtp $SAR/app/modules/smtp
 fi
 
 echo "Migrating data to shared filesystem..."
 cp -r sites/* $FS/sites
+cp -r modules/* $FS/modules
 
 echo "Symlink to folders in shared filesystem..."
 rm -fr sites
 ln -s $FS/sites sites
+rm -fr modules
+ln -s $FS/modules modules
 
 # allow custom profile installations (if exist)
 if [ -s custom-profile.sh ]
