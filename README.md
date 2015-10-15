@@ -2,7 +2,7 @@
 
 This demo installs Drupal to Stackato by using 'drush' in post-staging
 hooks. Very little code is pushed by the client, just the scripts used
-to configure Drupal on Stackato. The stackato.yml file shows how these
+to configure Drupal on Stackato. The manifest.yml file shows how these
 are run, and demonstrates the use of the filesystem service for sharing
 user content, themes and modules between application instances.
 
