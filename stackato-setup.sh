@@ -1,5 +1,5 @@
 #!/bin/bash
-#echo "This script does Stackato setup related to filesystem."
+#echo "This script does HPE Helion Stackato setup related to filesystem."
 #echo "This script also handles Drupal Setup."
 
 FS=$STACKATO_FILESYSTEM
