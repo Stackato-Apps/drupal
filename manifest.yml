@@ -2,7 +2,7 @@ applications:
 - name: drupal
   buildpack: https://github.com/heroku/heroku-buildpack-php.git
   instances: 1
-  mem: 256M
+  memory: 256M
   services:
     ${name}-db:
       type: mysql
