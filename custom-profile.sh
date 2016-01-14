@@ -4,7 +4,7 @@
 PROFILE_URL=http://ftp.drupal.org/files/projects/commerce_kickstart-7.x-1.11-no-core.tar.gz
 
 # Then we get drupal distro files (no-core) from drupal.org
-curl -sfS $PROFILE_URL | tar xzf - -C profiles
+curl -LsS $PROFILE_URL | tar xzf - -C profiles
 #cp -r profiles/commerce_kickstart/modules/* sites/all/modules/
 #rm -rf profiles/commerce_kickstart/modules/*
 
