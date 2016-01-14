@@ -15,7 +15,7 @@ if ! [ -s $HOME/index.php ]
 
     # download required files
     echo "Downloading Drush and Drupal..."
-    curl -sfS $DRUSH | tar xzf - 
+    curl -LsS $DRUSH | tar xzf -
     mv drush $SAR
 
     $SAR/drush/drush dl drupal --drupal-project-rename=drupal --yes
@@ -23,7 +23,7 @@ if ! [ -s $HOME/index.php ]
     rmdir drupal
 
     echo "Downloading SMPT module..."
-    curl -sfS $SMTP_MODULE | tar xzf -
+    curl -LsS $SMTP_MODULE | tar xzf -
     mv smtp $SAR/app/modules/smtp
 fi
 
