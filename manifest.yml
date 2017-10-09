@@ -1,6 +1,6 @@
 applications:
 - name: drupal
-  buildpack: https://github.com/heroku/heroku-buildpack-php.git
+  buildpack: https://github.com/heroku/heroku-buildpack-php#v82
   instances: 1
   memory: 256M
   services:
